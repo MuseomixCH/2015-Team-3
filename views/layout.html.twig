@@ -9,5 +9,13 @@
         <div class="container">
             {% block content %}{% endblock %}
         </div>
+        <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ google_map_api_key }}"></script>
+        <script type="text/javascript">
+            {% block inline_javascript %}
+                var GRES = GRES || {};
+            {% endblock %}
+        </script>
+        <script type="text/javascript" src="/assets/js/scripts.js"></script>
     </body>
 </html>

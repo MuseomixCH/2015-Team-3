@@ -9,3 +9,8 @@
         <div class="col-md-6"></div>
     </div>
 {% endblock %}
+
+{% block inline_javascript %}
+    {{ parent() }}
+    GRES.escapeId = {{ escapeId }}
+{% endblock %}

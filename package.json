@@ -19,6 +19,7 @@
   "devDependencies": {
     "bootstrap-sass": "^3.3.5",
     "gulp": "^3.9.0",
-    "gulp-sass": "^2.1.0"
+    "gulp-sass": "^2.1.0",
+    "jquery": "^2.1.4"
   }
 }

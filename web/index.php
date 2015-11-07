@@ -8,6 +8,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use GuzzleHttp\Client;
 
 $app = new Silex\Application();
@@ -19,6 +20,12 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
   'twig.path' => __DIR__.'/../views',
 ));
 $app->register(new DerAlex\Silex\YamlConfigServiceProvider(__DIR__ . '/../config/parameters.yml'));
+
+$app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
+  $twig->addGlobal('google_map_api_key', $app['config']['google']['map_api_key']);
+
+  return $twig;
+}));
 
 /**
  * Converts IP address to coordinates.
@@ -43,6 +50,33 @@ function convertIpToCoordinates($ipAddress)
 
   return $coordinates;
 }
+
+/**
+ * Shows the escape information in JSON (used for the map).
+ */
+$app->get('/escape.json/{id}', function ($id) use ($app) {
+  $mapSettings = array();
+
+  $consumerKey = $app['config']['twitter']['consumer_key'];
+  $consumerSecretKey = $app['config']['twitter']['consumer_secret_key'];
+  $accessToken = $app['config']['twitter']['access_token'];
+  $accessTokenSecret = $app['config']['twitter']['access_token_secret'];
+
+  // TODO: Handle Twitter connection errors
+  $connection = new TwitterOAuth($consumerKey, $consumerSecretKey, $accessToken, $accessTokenSecret);
+  $connection->get('account/verify_credentials');
+
+  // TODO: Handle Twitter tweets errors
+  $results = $connection->get('statuses/user_timeline');
+
+  $mapSettings['centerCoordinates'] = array(
+    'lat' => 46.941772,
+    'lng' => 7.449993
+  );
+  $mapSettings['zoom'] = 5;
+
+  return new JsonResponse($mapSettings);
+});
 
 /**
  * Posts a tweet for an escape.
@@ -75,7 +109,7 @@ $app->post('/escape', function (Request $request) use ($app) {
  * Shows the escape.
  */
 $app->get('/escape/{id}', function ($id) use ($app) {
-  return $app['twig']->render('escape/show.html.twig');
+  return $app['twig']->render('escape/show.html.twig', array('escapeId' => $id));
 });
 
 $app->run();

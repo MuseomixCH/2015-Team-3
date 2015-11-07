@@ -3,3 +3,6 @@ twitter:
   consumer_secret_key:  'YOUR_CONSUMER_SECRET_KEY'
   access_token:         'YOUR_ACCESS_TOKEN'
   access_token_secret:  'YOUR_ACCESS_TOKEN_SECRET'
+
+google:
+  map_api_key:          'YOUR_GOOGLE_MAP_API_KEY'
