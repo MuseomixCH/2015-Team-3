@@ -1,0 +1,11 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <form action="index.php/tweet" method="post">
+        <div>
+            <label for="tweet-body">Name:</label>
+            <textarea name="tweet-body" id="tweet-body" maxlength="140"></textarea>
+        </div>
+        <input type="submit">
+    </form>
+{% endblock %}
