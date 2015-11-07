@@ -44,7 +44,10 @@ function convertIpToCoordinates($ipAddress)
   return $coordinates;
 }
 
-$app->post('/tweet', function (Request $request) use ($app) {
+/**
+ * Posts a tweet for an escape.
+ */
+$app->post('/escape', function (Request $request) use ($app) {
 
   $tweetText = $request->request->get('tweet-body');
   $coordinates = convertIpToCoordinates($request->getClientIp());
@@ -65,11 +68,14 @@ $app->post('/tweet', function (Request $request) use ($app) {
     'long' => $coordinates->long
   ));
 
-  return $app['twig']->render('tweet/confirmation.html.twig');
+  return $app['twig']->render('escape/show.html.twig');
 });
 
-$app->get('/', function () use ($app) {
-  return $app['twig']->render('tweet/form.html.twig');
+/**
+ * Shows the escape.
+ */
+$app->get('/escape/{id}', function ($id) use ($app) {
+  return $app['twig']->render('escape/show.html.twig');
 });
 
 $app->run();
