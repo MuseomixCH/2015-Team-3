@@ -1,0 +1,24 @@
+{
+  "name": "museomixtwitterdb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gperriard/museomixtwitterdb.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gperriard/museomixtwitterdb/issues"
+  },
+  "homepage": "https://github.com/gperriard/museomixtwitterdb#readme",
+  "devDependencies": {
+    "bootstrap-sass": "^3.3.5",
+    "gulp": "^3.9.0",
+    "gulp-sass": "^2.1.0"
+  }
+}
