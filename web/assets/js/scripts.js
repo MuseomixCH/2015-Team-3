@@ -1,10 +1,17 @@
 /*global google */
 (function ($, google, GRES) {
-	var map;
+	var map,
+			mapContainer;
 
-	$.getJSON('/escape.json/' + GRES.escapeId, function(mapSettings) {
-		console.log(mapSettings);
-	});
+	mapContainer = $('#map');
+	if (mapContainer.length > 0) {
+		$.getJSON('/escape.json/' + GRES.escapeId, function(mapSettings) {
+			map = new google.maps.Map(mapContainer.get(0), {
+				center: mapSettings.centerCoordinates,
+				zoom: mapSettings.zoom
+			});
+		});
+	}
 
 	var textAreaId = '#tweet-body';
 	var textCountId = '#tweet-count';

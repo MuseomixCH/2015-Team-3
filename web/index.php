@@ -84,6 +84,7 @@ $app->get('/escape.json/{id}', function ($id) use ($app) {
 $app->post('/escape', function (Request $request) use ($app) {
 
   $tweetText = $request->request->get('tweet-body');
+  $id = $request->request->get('escape-id');
   $coordinates = convertIpToCoordinates($request->getClientIp());
 
   $consumerKey = $app['config']['twitter']['consumer_key'];
@@ -102,7 +103,7 @@ $app->post('/escape', function (Request $request) use ($app) {
     'long' => $coordinates->long
   ));
 
-  return $app['twig']->render('escape/show.html.twig');
+  return $app['twig']->render('escape/show.html.twig', array('escapeId' => $id));
 });
 
 /**
