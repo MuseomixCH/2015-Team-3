@@ -5,6 +5,7 @@ ini_set('display_errors','On');
 
 // web/index.php
 require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/../src/Museomix/Entity/Artefact.php';
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Symfony\Component\HttpFoundation\Request;
@@ -81,6 +82,29 @@ function convertIpToCoordinates($ipAddress)
 }
 
 /**
+ * Returns an artefact according to
+ * the hashtag contained in the given message.
+ *
+ * @param string $twitterMessage
+ * @return Artefact||null
+ */
+function hashtagToArtefact($twitterMessage)
+{
+  preg_match_all("/(#\w+)/", $twitterMessage, $matches);
+  if (in_array('#esc-white', $matches)){
+    return $artefact0;
+  } else if(in_array('#esc-white', $matches)){
+    return $artefact1;
+  } else if(in_array('#esc-yellow', $matches)){
+    return $artefact2;
+  } else if(in_array('#esc-pink', $matches)){
+    return $artefact3;
+  } else {
+    return null;
+  }
+}
+
+/**
  * Shows the escape information in JSON (used for the map).
  */
 $app->get('/escape.json/{id}', function ($id) use ($app) {
@@ -96,7 +120,29 @@ $app->get('/escape.json/{id}', function ($id) use ($app) {
   $connection->get('account/verify_credentials');
 
   // TODO: Handle Twitter tweets errors
-  $results = $connection->get('statuses/user_timeline');
+  $tweets = $connection->get('statuses/user_timeline');
+
+  foreach ($tweets as $tweet) {
+    $artefact = new \StdClass();
+
+    $coordinates = null;
+    var_dump($tweet);
+
+    //if ($tweet->coordinates !== null) {
+    //  $coordinates = array(
+    //    'lat' => '',
+    //    'lng' => ''
+    //  );
+    //}
+
+    $mapSettings['tweets'][] = array(
+      'name' => 'test', //$artefact->getName(),
+      'message' => $tweet->text,
+      'coordinates' => $coordinates
+    );
+  }
+
+  die('asdasd');
 
   $mapSettings['centerCoordinates'] = array(
     'lat' => 46.941772,
