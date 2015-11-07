@@ -2,8 +2,11 @@
     <form action="index.php/tweet" method="post">
         <div class="form-group">
             <label for="tweet-body">Name:</label>
-            <textarea class="form-control" placeholder="Your message" name="tweet-body" id="tweet-body" maxlength="140"></textarea>
+            <textarea class="form-control" placeholder="Your message" name="tweet-body" id="tweet-body" maxlength="100"></textarea>
+            <h6 class="pull-left"><span id="tweet-count"></span> remaining</h6>
         </div>
-        <input class="btn btn-default" type="submit">
+        <div class="pull-right">
+            <input class="btn btn-default btn-info" type="submit">
+        </div>
     </form>
 {% endblock %}
