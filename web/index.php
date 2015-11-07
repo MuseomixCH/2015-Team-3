@@ -44,10 +44,6 @@ function convertIpToCoordinates($ipAddress)
   return $coordinates;
 }
 
-$app->get('/test', function (Request $request) use ($app) {
-  return convertIpToCoordinates($request->getClientIp());
-});
-
 $app->post('/tweet', function (Request $request) use ($app) {
 
   $tweetText = $request->request->get('tweet-body');
