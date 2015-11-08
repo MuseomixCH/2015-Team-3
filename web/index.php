@@ -90,33 +90,40 @@ function convertIpToCoordinates($ipAddress)
 
 /**
  * Returns an artefact according to
- * the hashtag contained in the given message.
+ * the first hashtag matched in the given message.
  *
  * @param string $twitterMessage
  * @return Artefact||null
  */
-function hashtagToArtefact($twitterMessage)
+$hashtagToArtefact = function ($twitterMessage) use ($artefacts)
 {
   preg_match_all("/(#\w+)/", $twitterMessage, $matches);
-  if (in_array('#escWhite', $matches)){
-    return $artefact0;
-  } else if(in_array('#escYellow', $matches)){
-    return $artefact1;
-  } else if(in_array('#escPink', $matches)){
-    return $artefact2;
-  } else if(in_array('#escBlue', $matches)){
-    return $artefact3;
-  } else {
-    return null;
+  foreach ($matches as $match) {
+    if (in_array('#escWhite', $match)) {
+      return $artefacts[0];
+    } else if(in_array('#escYellow', $match)){
+      return $artefacts[1];
+    } else if(in_array('#escPink', $match)){
+      return $artefacts[2];
+    } else if(in_array('#escBlue', $match)){
+      return $artefacts[3];
+    }
   }
-}
+
+  return null;
+};
 
 /**
  * Returns a JSON with tweets that are geolocalized, related to the given escape id.
  * That feed will be consume by GoogleMap.
  */
-$app->get('/escape-map.json/{id}', function ($id) use ($app) {
+$app->get('/escape-map.json/{id}', function ($id) use ($app, $artefacts, $hashtagToArtefact) {
   $mapSettings = array();
+
+  // Returns 404 if the given escape doesn't exist.
+  if (!isset($artefacts[$id])) {
+    return new JsonResponse('Sorry, the resource you are looking for could not be found.', 404);
+  }
 
   $consumerKey = $app['config']['twitter']['consumer_key'];
   $consumerSecretKey = $app['config']['twitter']['consumer_secret_key'];
@@ -131,6 +138,14 @@ $app->get('/escape-map.json/{id}', function ($id) use ($app) {
   $tweets = $connection->get('statuses/user_timeline');
 
   foreach ($tweets as $tweet) {
+
+    // Does not include tweets that doesn't belong to the given escape id.
+    if (
+      $hashtagToArtefact($tweet->text) === null
+      || $hashtagToArtefact($tweet->text)->getId() === $id
+    ) {
+      continue;
+    }
 
     // Does not include tweets that doesn't have a location.
     if ($tweet->place === null) {
