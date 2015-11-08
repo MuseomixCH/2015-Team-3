@@ -210,7 +210,7 @@ $app->post('/escape', function (Request $request) use ($app, $artefacts) {
     'long' => $coordinates->long
   ));
 
-  return $app['twig']->render('escape/show.html.twig', array('escapeId' => $id));
+  return $app['twig']->render('escape/show.html.twig', array('escape' => $artefacts[$id]));
 });
 
 /**
