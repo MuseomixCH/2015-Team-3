@@ -5,7 +5,7 @@
 
 	mapContainer = $('#map');
 	if (mapContainer.length > 0) {
-		$.getJSON('/escape.json/' + GRES.escapeId, function(mapSettings) {
+		$.getJSON('/escape-map.json/' + GRES.escapeId, function(mapSettings) {
 			map = new google.maps.Map(mapContainer.get(0), {
 				center: mapSettings.centerCoordinates,
 				zoom: mapSettings.zoom
