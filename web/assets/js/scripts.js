@@ -3,7 +3,6 @@
 	var map,
 			mapContainer,
 			url,
-			lineCoordinates = [],
 			bounds,
 			asideContainer;
 
@@ -33,6 +32,7 @@
 			bounds = new google.maps.LatLngBounds();
 			mapSettings.artefacts.forEach(function (artefact) {
 
+				var lineCoordinates = [];
 				artefact.tweets.forEach(function (tweet) {
 					var marker,
 							roadPath;
