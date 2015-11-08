@@ -336,22 +336,22 @@ h6, .h6 {
     font-size: 75%; }
 
 h1, .h1 {
-  font-size: 36px; }
+  font-size: 18px; }
 
 h2, .h2 {
-  font-size: 30px; }
+  font-size: 14px; }
 
 h3, .h3 {
-  font-size: 24px; }
+  font-size: 9px; }
 
 h4, .h4 {
-  font-size: 18px; }
+  font-size: 6px; }
 
 h5, .h5 {
   font-size: 14px; }
 
 h6, .h6 {
-  font-size: 12px; }
+  font-size: 5px; }
 
 p {
   margin: 0 0 10px; }
@@ -2170,14 +2170,16 @@ input[type="button"].btn-block {
 .l-header {
   padding: 1em;
   text-align: center;
-  background-color: #F3F3F3; }
+  background-color: #FFF;
+  border-bottom: 1px solid #CECECE;
+  box-shadow: 1px 0 1px rgba(0, 0, 0, 0.32); }
 
 .l-logo {
   width: 100%; }
 
 .l-map {
   width: 100%;
-  height: 600px; }
+  height: 400px; }
 
 .l-twitter-form:before, .l-twitter-form:after {
   content: " ";
@@ -2188,9 +2190,8 @@ input[type="button"].btn-block {
 
 @media (min-width: 768px) {
   .l-aside {
-    overflow-y: auto; }
-  .l-header {
-    text-align: left; }
+    overflow-y: auto;
+    border-right: 1px solid #999999; }
   .l-logo {
     width: 200px; }
   .l-map {

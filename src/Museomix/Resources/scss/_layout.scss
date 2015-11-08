@@ -10,7 +10,9 @@
 
     text-align: center;
 
-    background-color: #F3F3F3;
+    background-color: #FFF;
+    border-bottom: 1px solid #CECECE;
+    box-shadow: 1px 0 1px rgba(0, 0, 0, 0.32);
   }
 
     .l-logo {
@@ -19,7 +21,7 @@
 
   .l-map {
     width: 100%;
-    height: 600px;
+    height: 400px;
   }
 
 .l-twitter-form {
@@ -29,11 +31,8 @@
 @media (min-width: $screen-sm) {
   .l-aside {
     overflow-y: auto;
+    border-right: 1px solid #999999;
   }
-
-    .l-header {
-      text-align: left;
-    }
 
       .l-logo {
         width: 200px;
