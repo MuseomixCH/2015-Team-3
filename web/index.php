@@ -169,7 +169,7 @@ $app->post('/escape', function (Request $request) use ($app, $artefacts) {
 
   // Detect the artefact or returns 404 if not found.
   if (!isset($artefacts[$id])) {
-    return $app['twig']->render('404.html.twig');
+    $app->abort(404, 'Sorry, the resource you are looking for could not be found.');
   }
 
   $coordinates = convertIpToCoordinates($request->getClientIp());
