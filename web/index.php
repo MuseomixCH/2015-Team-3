@@ -115,6 +115,61 @@ $hashtagToArtefact = function ($twitterMessage) use ($artefacts)
 };
 
 /**
+ * Shows all escapes.
+ */
+$app->get('/escapes', function () use ($app, $artefacts) {
+  return $app['twig']->render('escape/index.html.twig', array());
+});
+
+/**
+ * Returns a JSON with tweets that are geolocalized, related to the all escapes.
+ * That feed will be consume by GoogleMap.
+ */
+$app->get('/escapes-map.json', function () use ($app, $artefacts, $hashtagToArtefact) {
+  $mapSettings = array();
+
+  $consumerKey = $app['config']['twitter']['consumer_key'];
+  $consumerSecretKey = $app['config']['twitter']['consumer_secret_key'];
+  $accessToken = $app['config']['twitter']['access_token'];
+  $accessTokenSecret = $app['config']['twitter']['access_token_secret'];
+
+  // TODO: Handle Twitter connection errors
+  $connection = new TwitterOAuth($consumerKey, $consumerSecretKey, $accessToken, $accessTokenSecret);
+  $connection->get('account/verify_credentials');
+
+  // TODO: Handle Twitter tweets errors
+  $tweets = $connection->get('statuses/user_timeline');
+
+  foreach ($tweets as $tweet) {
+
+    // Does not include tweets that doesn't have a location.
+    if ($tweet->place === null) {
+      continue;
+    }
+
+    $coordinates = array(
+      'lng' => floatval($tweet->place->bounding_box->coordinates[0][0][0]),
+      'lat' => floatval($tweet->place->bounding_box->coordinates[0][0][1])
+    );
+
+    $mapSettings['tweets'][] = array(
+      'name' => 'test',
+      'message' => $tweet->text,
+      'coordinates' => $coordinates
+    );
+  }
+
+  // Center the map on the MFK in Bern.
+  $mapSettings['centerCoordinates'] = array(
+    'lat' => 46.941772,
+    'lng' => 7.449993
+  );
+  $mapSettings['zoom'] = 13;
+
+  return new JsonResponse($mapSettings);
+});
+
+/**
  * Returns a JSON with tweets that are geolocalized, related to the given escape id.
  * That feed will be consume by GoogleMap.
  */
