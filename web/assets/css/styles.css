@@ -2182,6 +2182,9 @@ input[type="button"].btn-block {
 .l-twitter-form:after {
   clear: both; }
 
+#summary-page .l-map {
+  height: 700px; }
+
 @media (min-width: 1200px) {
   .l-header {
     text-align: left; }
