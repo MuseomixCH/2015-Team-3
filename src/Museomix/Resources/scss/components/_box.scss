@@ -1,0 +1,21 @@
+// Box
+
+.box {
+  position: relative;
+}
+
+  .box-xs {
+    padding: $box-xs-padding;
+  }
+
+  .box-sm {
+    padding: $box-sm-padding;
+  }
+
+  .box-md {
+    padding: $box-md-padding;
+  }
+
+  .box-lg {
+    padding: $box-lg-padding;
+  }

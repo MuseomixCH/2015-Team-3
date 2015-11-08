@@ -1,11 +1,12 @@
 
+// Configuration
+@import 'variables';
+
 // Vendors
 @import 'vendors/bootstrap';
 
+// Components
+@import 'components/box';
+
 // Layout
 @import 'layout';
-
-.map {
-  width: 100%;
-  height: 300px;
-}
