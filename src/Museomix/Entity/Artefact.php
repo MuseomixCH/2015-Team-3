@@ -19,15 +19,20 @@ class Artefact
      */
     protected $hashtag;
 
-    /*
+    /**
      * @var string
      */
     protected $color;
 
-    /*
+    /**
      * @var string
      */
     protected $icon;
+
+    /**
+     * @var string
+    */
+    protected $image;
 
     /**
      * @return int
@@ -107,5 +112,21 @@ class Artefact
     public function setIcon($icon)
     {
         $this->icon = $icon;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
     }
 }
