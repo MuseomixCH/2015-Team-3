@@ -1,61 +1,53 @@
 {% extends "layout.html.twig" %}
 
-{% block content %}
-    <h1>{{ escape.name }}</h1>
-    <div class="row">
-        <div class="col-md-9 col-md-push-3">
-            {% include 'escape/map.html.twig' with {'ajax_url': '/escape-map.json/' ~ escape.id } %}
-        </div>
-        <div class="col-md-3 col-md-pull-9">
-            <div class="box box-xs">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <img class="img-rounded img-responsive" src="/assets/img/artefacts/{{ escape.image }}" alt="{{ escape.name }}">
-                    </div>
-                    <div class="col-sm-7 col-sm-offset-1">
+{% block left_column %}
+    <div class="box box-xs">
+        <h1>{{ escape.name }}</h1>
+        <div class="row">
+            <div class="col-sm-3">
+                <img class="img-rounded img-responsive" src="/assets/img/artefacts/{{ escape.image }}" alt="{{ escape.name }}">
+            </div>
+            <div class="col-sm-7 col-sm-offset-1">
 
-                        <p>Hi! I am an <em>esc-key</em>. With me, you normally stop an action on your
-                        computer.
-                        </p><p>
-                        I escaped from the Museum of Communication in Bern which is under
-                        construction until 2017. I’m travelling around the world and I’m looking for
-                        friendly people and great adventures!
-                        </p>
-                    </div>
-                </div>
-                <p>
-                Please support my wish in 3 steps:
-
-                    <ol>
-                        <li>
-                            Everyone has to escape sometimes. From a tempest, from a play,
-                    out of a personal relation. Tell me <strong>YOUR</strong> escape-story in max. 95
-                    characters!
-                        </li>
-                        <li>
-                            Hand me over to a friend who you really trust. Meet him, take a
-                    selfie of the handover and post it too!
-                        </li>
-                        <li>
-                            Tell your friend to hand me over to another good friend who will
-                    help me continue my journey!
-                        </li>
-                    </ol>
-                <p>
-                    In August 2017 I would like to be back in the Museum of Communication in Bern.
+                <p>Hi! I am an <em>esc-key</em>. With me, you normally stop an action on your
+                    computer.
+                </p><p>
+                    I escaped from the Museum of Communication in Bern which is under
+                    construction until 2017. I’m travelling around the world and I’m looking for
+                    friendly people and great adventures!
                 </p>
-                <p>
-                    Thank you very much for giving me a good time!
-                </p>
-                {% include 'escape/form.html.twig' %}
-                <hr>
-                {% include 'escape/tweet-list.html.twig' %}
             </div>
         </div>
+        <p>
+            Please support my wish in 3 steps:
+
+        <ol>
+            <li>
+                Everyone has to escape sometimes. From a tempest, from a play,
+                out of a personal relation. Tell me <strong>YOUR</strong> escape-story in max. 95
+                characters!
+            </li>
+            <li>
+                Hand me over to a friend who you really trust. Meet him, take a
+                selfie of the handover and post it too!
+            </li>
+            <li>
+                Tell your friend to hand me over to another good friend who will
+                help me continue my journey!
+            </li>
+        </ol>
+        <p>
+            In August 2017 I would like to be back in the Museum of Communication in Bern.
+        </p>
+        <p>
+            Thank you very much for giving me a good time!
+        </p>
+        {% include 'escape/form.html.twig' %}
+        <hr>
+        {% include 'escape/tweet-list.html.twig' %}
     </div>
 {% endblock %}
 
-{% block inline_javascript %}
-    {{ parent() }}
-    GRES.escapeId = {{ escape.id }}
+{% block right_column %}
+    {% include 'escape/map.html.twig' with {'ajax_url': '/escape-map.json/' ~ escape.id } %}
 {% endblock %}

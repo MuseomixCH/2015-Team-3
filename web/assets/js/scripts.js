@@ -4,9 +4,22 @@
 			mapContainer,
 			url,
 			lineCoordinates = [],
-			bounds;
+			bounds,
+			asideContainer;
 
+	asideContainer = $('.l-aside');
 	mapContainer = $('#map');
+
+	var adaptLayout = function () {
+		if ($(window).innerWidth() > 767) {
+			asideContainer.height($(window).height());
+			mapContainer.height($(window).height());
+		} else {
+			asideContainer.height('');
+			mapContainer.height('');
+		}
+	};
+
 	if (mapContainer.length > 0) {
 		url = mapContainer.attr('data-url');
 
@@ -63,5 +76,11 @@
 			$(textCountId).html(text_remaining);
 		});
 	}
+
+	$(window).resize(function() {
+		adaptLayout();
+	});
+
+	adaptLayout();
 
 })(jQuery, google, GRES);

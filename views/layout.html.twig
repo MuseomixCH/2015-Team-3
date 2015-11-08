@@ -7,14 +7,22 @@
         <link href="/assets/css/styles.css" media="all" type="text/css" rel="stylesheet">
     </head>
     <body>
-        <header class="l-header">
-            <div class="container-fluid">
-                <img class="l-logo" src="/assets/img/logo.svg" alt="Logo Great Escape">
-            </div>
-        </header>
         <div class="container-fluid">
-            {% block content %}{% endblock %}
+            <div class="row">
+                <div class="col-sm-4 l-aside">
+                    <header class="l-header">
+                        <img class="l-logo" src="/assets/img/logo.svg" alt="Logo Great Escape">
+                    </header>
+                    <aside>
+                        {% block left_column %}{% endblock %}
+                    </aside>
+                </div>
+                <div class="col-sm-8">
+                    {% block right_column %}{% endblock %}
+                </div>
+            </div>
         </div>
+
         <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ google_map_api_key }}"></script>
         <script type="text/javascript">
