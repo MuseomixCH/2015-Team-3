@@ -7,7 +7,7 @@
 	mapContainer = $('#map');
 	if (mapContainer.length > 0) {
 		url = mapContainer.attr('data-url');
-		console.log(url);
+
 		$.getJSON(url, function(mapSettings) {
 			map = new google.maps.Map(mapContainer.get(0), {
 				center: mapSettings.centerCoordinates,
@@ -16,7 +16,7 @@
 
 			var bounds = new google.maps.LatLngBounds();
 			mapSettings.tweets.forEach(function (tweet) {
-				console.log(tweet);
+
 				var marker = new google.maps.Marker({
 					position: tweet.coordinates,
 					title: tweet.name
