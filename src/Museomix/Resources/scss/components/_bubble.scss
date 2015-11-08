@@ -1,0 +1,44 @@
+// Bubble
+
+.bubble {
+  padding: 1em;
+
+  border-radius: 4px;
+}
+
+.bubble-default {
+  margin-bottom: 1em;
+  background-color: $bubble-default-background-color;
+
+  &:after {
+    position: absolute;
+    top: -9px;
+    left: 10px;
+
+    display: block;
+    width: 0;
+    height: 0;
+
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid $bubble-default-background-color;
+    border-left: 10px solid transparent;
+
+    content: ' ';
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: $screen-sm) {
+  .bubble-default:after {
+    top: 10px;
+    left: -9px;
+
+    border-top: 10px solid transparent;
+    border-right:10px solid $bubble-default-background-color;
+    border-bottom: 10px solid transparent;
+    border-left: none;
+  }
+}
