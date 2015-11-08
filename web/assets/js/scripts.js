@@ -10,6 +10,21 @@
 				center: mapSettings.centerCoordinates,
 				zoom: mapSettings.zoom
 			});
+
+			var bounds = new google.maps.LatLngBounds();
+			mapSettings.tweets.forEach(function (tweet) {
+				console.log(tweet);
+				var marker = new google.maps.Marker({
+					position: tweet.coordinates,
+					title: tweet.name
+				});
+
+				bounds.extend(marker.getPosition());
+				marker.setMap(map);
+			});
+
+			// Adapt the viewport of the map so we see all locations.
+			map.fitBounds(bounds);
 		});
 	}
 

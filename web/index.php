@@ -123,32 +123,30 @@ $app->get('/escape.json/{id}', function ($id) use ($app) {
   $tweets = $connection->get('statuses/user_timeline');
 
   foreach ($tweets as $tweet) {
-    $artefact = new \StdClass();
 
-    $coordinates = null;
-    var_dump($tweet);
+    // Does not include tweets that doesn't have a location.
+    if ($tweet->place === null) {
+      continue;
+    }
 
-    //if ($tweet->coordinates !== null) {
-    //  $coordinates = array(
-    //    'lat' => '',
-    //    'lng' => ''
-    //  );
-    //}
+    $coordinates = array(
+      'lng' => floatval($tweet->place->bounding_box->coordinates[0][0][0]),
+      'lat' => floatval($tweet->place->bounding_box->coordinates[0][0][1])
+    );
 
     $mapSettings['tweets'][] = array(
-      'name' => 'test', //$artefact->getName(),
+      'name' => 'test',
       'message' => $tweet->text,
       'coordinates' => $coordinates
     );
   }
 
-  die('asdasd');
-
+  // Center the map on the MFK in Bern.
   $mapSettings['centerCoordinates'] = array(
     'lat' => 46.941772,
     'lng' => 7.449993
   );
-  $mapSettings['zoom'] = 5;
+  $mapSettings['zoom'] = 13;
 
   return new JsonResponse($mapSettings);
 });
