@@ -35,7 +35,7 @@ $artefacts = array();
 
 $artefact0 = new Artefact();
 $artefact0->setId(0);
-$artefact0->setName('Esc white');
+$artefact0->setName('esc white');
 $artefact0->setColor('white');
 $artefact0->setHashtag('escWhite');
 $artefact0->setIcon('esc-white.png');
@@ -44,7 +44,7 @@ $artefacts[0] = $artefact0;
 
 $artefact1 = new Artefact();
 $artefact1->setId(1);
-$artefact1->setName('Esc yellow');
+$artefact1->setName('esc yellow');
 $artefact1->setColor('yellow');
 $artefact1->setHashtag('escYellow');
 $artefact1->setIcon('esc-yellow.png');
@@ -53,7 +53,7 @@ $artefacts[1] = $artefact1;
 
 $artefact2 = new Artefact();
 $artefact2->setId(2);
-$artefact2->setName('Esc pink');
+$artefact2->setName('esc pink');
 $artefact2->setColor('pink');
 $artefact2->setHashtag('escPink');
 $artefact2->setIcon('esc-pink.png');
@@ -62,7 +62,7 @@ $artefacts[2] = $artefact2;
 
 $artefact3 = new Artefact();
 $artefact3->setId(3);
-$artefact3->setName('Esc blue');
+$artefact3->setName('esc blue');
 $artefact3->setColor('blue');
 $artefact3->setHashtag('escBlue');
 $artefact3->setIcon('esc-blue.png');
