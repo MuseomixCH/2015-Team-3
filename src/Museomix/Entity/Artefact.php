@@ -31,8 +31,13 @@ class Artefact
 
     /**
      * @var string
-    */
+     */
     protected $image;
+
+    /**
+     * @var \StdClass[]
+     */
+    protected $tweets = array();
 
     /**
      * @return int
@@ -128,5 +133,21 @@ class Artefact
     public function setImage($image)
     {
         $this->image = $image;
+    }
+
+    /**
+     * @return \StdClass[]
+     */
+    public function getTweets()
+    {
+        return $this->tweets;
+    }
+
+    /**
+     * @param \StdClass $tweet
+     */
+    public function addTweet(\StdClass $tweet)
+    {
+        $this->tweets[] = $tweet;
     }
 }

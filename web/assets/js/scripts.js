@@ -3,7 +3,8 @@
 	var map,
 			mapContainer,
 			url,
-			lineCoordinates = [];
+			lineCoordinates = [],
+			bounds;
 
 	mapContainer = $('#map');
 	if (mapContainer.length > 0) {
@@ -16,30 +17,33 @@
 				mapTypeId: google.maps.MapTypeId.TERRAIN
 			});
 
-			var bounds = new google.maps.LatLngBounds();
-			mapSettings.tweets.forEach(function (tweet) {
+			bounds = new google.maps.LatLngBounds();
+			mapSettings.artefacts.forEach(function (artefact) {
 
-				var marker = new google.maps.Marker({
-					position: tweet.coordinates,
-					title: tweet.name
+				artefact.tweets.forEach(function (tweet) {
+					var marker,
+							roadPath;
+
+					marker = new google.maps.Marker({
+						position: tweet.coordinates,
+						title: tweet.name
+					});
+					bounds.extend(marker.getPosition());
+
+					// Draws road line between tweets.
+					lineCoordinates.push(marker.getPosition());
+					roadPath = new google.maps.Polyline({
+						path: lineCoordinates,
+						geodesic: true,
+						strokeColor: artefact.lineColor,
+						strokeOpacity: 1.0,
+						strokeWeight: 2
+					});
+
+					marker.setMap(map);
+					roadPath.setMap(map);
 				});
-
-				bounds.extend(marker.getPosition());
-				lineCoordinates.push(marker.getPosition());
-
-				marker.setMap(map);
 			});
-
-			// Draws road line between tweets.
-			var roadPath = new google.maps.Polyline({
-				path: lineCoordinates,
-				geodesic: true,
-				strokeColor: mapSettings.lineColor,
-				strokeOpacity: 1.0,
-				strokeWeight: 2
-			});
-
-			roadPath.setMap(map);
 
 			// Adapt the viewport of the map so we see all locations.
 			map.fitBounds(bounds);

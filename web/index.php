@@ -144,23 +144,31 @@ $app->get('/escapes-map.json', function () use ($app, $artefacts, $hashtagToArte
   // TODO: Handle Twitter tweets errors
   $tweets = $connection->get('statuses/user_timeline');
 
-  foreach ($tweets as $tweet) {
+  // Adds tweets to the artefact.
+  foreach ($tweets as $rawTweet) {
+
+    // Avoid tweets that doesn't belong to an artefact.
+    $artefact = $hashtagToArtefact($rawTweet->text);
+    $tweet = new \StdClass();
+    if ($artefact === null) {
+      continue;
+    }
 
     // Does not include tweets that doesn't have a location.
-    if ($tweet->place === null) {
+    if ($rawTweet->place === null) {
       continue;
     }
 
     $coordinates = array(
-      'lng' => floatval($tweet->place->bounding_box->coordinates[0][0][0]),
-      'lat' => floatval($tweet->place->bounding_box->coordinates[0][0][1])
+      'lng' => floatval($rawTweet->place->bounding_box->coordinates[0][0][0]),
+      'lat' => floatval($rawTweet->place->bounding_box->coordinates[0][0][1])
     );
 
-    $mapSettings['tweets'][] = array(
-      'name' => 'test',
-      'message' => $tweet->text,
-      'coordinates' => $coordinates
-    );
+    $tweet->name = 'test';
+    $tweet->message = $rawTweet->text;
+    $tweet->coordinates = $coordinates;
+
+    $artefact->addTweet($tweet);
   }
 
   // Center the map on the MFK in Bern.
@@ -169,6 +177,14 @@ $app->get('/escapes-map.json', function () use ($app, $artefacts, $hashtagToArte
     'lng' => 7.449993
   );
   $mapSettings['zoom'] = 13;
+
+  $mapSettings['artefacts'] = array();
+  foreach ($artefacts as $artefactb) {
+    $mapSettings['artefacts'][] = array(
+      'lineColor' => $artefactb->getColor(),
+      'tweets' => $artefactb->getTweets()
+    );
+  }
 
   return new JsonResponse($mapSettings);
 });
@@ -197,31 +213,32 @@ $app->get('/escape-map.json/{id}', function ($id) use ($app, $artefacts, $hashta
   // TODO: Handle Twitter tweets errors
   $tweets = $connection->get('statuses/user_timeline');
 
-  foreach ($tweets as $tweet) {
+  foreach ($tweets as $rawTweet) {
 
-    // Does not include tweets that doesn't belong to the given escape id.
+    // Avoids tweets that doesn't belong to an escape id.
+    $tweet = new \StdClass();
     if (
-      $hashtagToArtefact($tweet->text) === null
-      || $hashtagToArtefact($tweet->text)->getId() === $id
+      $hashtagToArtefact($rawTweet->text) === null
+      || $hashtagToArtefact($rawTweet->text)->getId() !== intval($id)
     ) {
       continue;
     }
 
     // Does not include tweets that doesn't have a location.
-    if ($tweet->place === null) {
+    if ($rawTweet->place === null) {
       continue;
     }
 
     $coordinates = array(
-      'lng' => floatval($tweet->place->bounding_box->coordinates[0][0][0]),
-      'lat' => floatval($tweet->place->bounding_box->coordinates[0][0][1])
+      'lng' => floatval($rawTweet->place->bounding_box->coordinates[0][0][0]),
+      'lat' => floatval($rawTweet->place->bounding_box->coordinates[0][0][1])
     );
 
-    $mapSettings['tweets'][] = array(
-      'name' => 'test',
-      'message' => $tweet->text,
-      'coordinates' => $coordinates
-    );
+    $tweet->name = 'test';
+    $tweet->message = $rawTweet->text;
+    $tweet->coordinates = $coordinates;
+
+    $artefacts[$id]->addTweet($tweet);
   }
 
   // Center the map on the MFK in Bern.
@@ -230,7 +247,12 @@ $app->get('/escape-map.json/{id}', function ($id) use ($app, $artefacts, $hashta
     'lng' => 7.449993
   );
   $mapSettings['zoom'] = 13;
-  $mapSettings['lineColor'] = $artefacts[$id]->getColor();
+
+  $mapSettings['artefacts'] = array();
+  $mapSettings['artefacts'][] = array(
+    'lineColor' => $artefacts[$id]->getColor(),
+    'tweets' => $artefacts[$id]->getTweets()
+  );
 
   return new JsonResponse($mapSettings);
 });
