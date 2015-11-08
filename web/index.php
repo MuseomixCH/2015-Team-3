@@ -25,6 +25,7 @@ $app->register(new DerAlex\Silex\YamlConfigServiceProvider(__DIR__ . '/../config
 
 $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
   $twig->addGlobal('google_map_api_key', $app['config']['google']['map_api_key']);
+  $twig->addGlobal('twitter_consumer_username', $app['config']['twitter']['consumer_username']);
 
   return $twig;
 }));
