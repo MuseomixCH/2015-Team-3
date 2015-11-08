@@ -2149,8 +2149,25 @@ input[type="button"].btn-block {
   .hidden-print {
     display: none !important; } }
 
+.l-header {
+  padding: 3em 1em 1em 1em;
+  text-align: center; }
+
 .l-logo {
-  width: 200px; }
+  width: 100%; }
+
+.l-map {
+  width: 100%;
+  height: 300px;
+  padding-bottom: 2em; }
+
+.l-twitter-form {
+  padding-bottom: 2em; }
+  .l-twitter-form:before, .l-twitter-form:after {
+    content: " ";
+    display: table; }
+  .l-twitter-form:after {
+    clear: both; }
 
 .map {
   width: 100%;

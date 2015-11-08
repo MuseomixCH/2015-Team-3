@@ -1,6 +1,6 @@
-<form action="/escape" method="post">
+<form action="/escape" method="post" class="l-twitter-form">
     <div class="form-group">
-        <label for="tweet-body">Name:</label>
+        <label for="tweet-body">Your history:</label>
         <textarea class="form-control" placeholder="Your message" name="tweet-body" id="tweet-body" maxlength="100"></textarea>
         <h6 class="pull-left"><span id="tweet-count"></span> remaining</h6>
         <input type="hidden" name="escape-id" value="{{ escape.id }}">

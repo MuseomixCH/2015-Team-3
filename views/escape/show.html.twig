@@ -1,9 +1,10 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-    <h1>Escape</h1>
+    <h1>{{ escape.name }}</h1>
     <div class="row">
-        <div class="col-md-6">
+        {% include 'escape/map.html.twig' %}
+        <div class="col-md-4">
             <p>
                 Hello! I am the <em>esc-key</em>. With me, you can stop an action on
                 your computer. Since the middle of 2016 me and my friends
@@ -23,9 +24,6 @@
                 Thank you for your help!
             </p>
             {% include 'escape/form.html.twig' %}
-        </div>
-        <div class="col-md-6">
-            {% include 'escape/map.html.twig' %}
         </div>
     </div>
     <div class="row">
