@@ -226,6 +226,7 @@ $app->get('/escape-map.json/{id}', function ($id) use ($app, $artefacts, $hashta
     'lng' => 7.449993
   );
   $mapSettings['zoom'] = 13;
+  $mapSettings['lineColor'] = $artefacts[$id]->getColor();
 
   return new JsonResponse($mapSettings);
 });

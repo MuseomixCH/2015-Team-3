@@ -2,7 +2,8 @@
 (function ($, google, GRES) {
 	var map,
 			mapContainer,
-			url;
+			url,
+			lineCoordinates = [];
 
 	mapContainer = $('#map');
 	if (mapContainer.length > 0) {
@@ -11,7 +12,8 @@
 		$.getJSON(url, function(mapSettings) {
 			map = new google.maps.Map(mapContainer.get(0), {
 				center: mapSettings.centerCoordinates,
-				zoom: mapSettings.zoom
+				zoom: mapSettings.zoom,
+				mapTypeId: google.maps.MapTypeId.TERRAIN
 			});
 
 			var bounds = new google.maps.LatLngBounds();
@@ -23,8 +25,21 @@
 				});
 
 				bounds.extend(marker.getPosition());
+				lineCoordinates.push(marker.getPosition());
+
 				marker.setMap(map);
 			});
+
+			// Draws road line between tweets.
+			var roadPath = new google.maps.Polyline({
+				path: lineCoordinates,
+				geodesic: true,
+				strokeColor: mapSettings.lineColor,
+				strokeOpacity: 1.0,
+				strokeWeight: 2
+			});
+
+			roadPath.setMap(map);
 
 			// Adapt the viewport of the map so we see all locations.
 			map.fitBounds(bounds);
