@@ -167,7 +167,7 @@ $app->post('/escape', function (Request $request) use ($app, $artefacts) {
   $tweetText = $request->request->get('tweet-body');
   $id = intval($request->get('escape-id'));
 
-  // Detect the artefact or returns 404 if not found.
+  // Detects the artefact or returns 404 if not found.
   if (!isset($artefacts[$id])) {
     $app->abort(404, 'Sorry, the resource you are looking for could not be found.');
   }
@@ -200,8 +200,14 @@ $app->post('/escape', function (Request $request) use ($app, $artefacts) {
 /**
  * Shows the escape.
  */
-$app->get('/escape/{id}', function ($id) use ($app) {
-  return $app['twig']->render('escape/show.html.twig', array('escapeId' => $id));
+$app->get('/escape/{id}', function ($id) use ($app, $artefacts) {
+
+  // Detects the artefact or returns 404 if not found.
+  if (!isset($artefacts[$id])) {
+    $app->abort(404, 'Sorry, the resource you are looking for could not be found.');
+  }
+
+  return $app['twig']->render('escape/show.html.twig', array('escape' => $artefacts[$id]));
 });
 
 $app->run();
