@@ -3,19 +3,26 @@
 {% block content %}
     <h1>{{ escape.name }}</h1>
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-9 col-md-push-3">
             {% include 'escape/map.html.twig' with {'ajax_url': '/escape-map.json/' ~ escape.id } %}
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-md-pull-9">
             <div class="box box-xs">
-                <img class="img-rounded img-responsive" src="/assets/img/artefacts/{{ escape.image }}" alt="{{ escape.name }}">
-                <p>
-                    Hello! I am the <em>esc-key</em>. With me, you can stop an action on
-                    your computer. Since the middle of 2016 me and my friends
-                    of the Museum of Communication in Bern
-                    are travelling. The museum is under construction and we take a
-                    year off and want to meet people.
-                </p>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img class="img-rounded img-responsive" src="/assets/img/artefacts/{{ escape.image }}" alt="{{ escape.name }}">
+                    </div>
+                    <div class="col-sm-7 col-sm-offset-1">
+                        <p>
+                            Hello! I am the <em>esc-key</em>. With me, you can stop an action on
+                            your computer. Since the middle of 2016 me and my friends
+                            of the Museum of Communication in Bern
+                            are travelling. The museum is under construction and we take a
+                            year off and want to meet people.
+                        </p>
+                    </div>
+                </div>
+
                 <p>
                     Please tell me <strong>YOUR</strong> escape-story. For that you have only 120
                     characters. After that, please pass me on to somebody else, so
@@ -28,12 +35,7 @@
                     Thank you for your help!
                 </p>
                 {% include 'escape/form.html.twig' %}
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="box box-xs">
+                <hr>
                 {% include 'escape/tweet-list.html.twig' %}
             </div>
         </div>

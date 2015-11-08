@@ -2,20 +2,21 @@
 
 .box {
   position: relative;
+  background: rgb(229, 227, 223);
 }
 
-  .box-xs {
-    padding: $box-xs-padding;
-  }
+.box-xs {
+  padding: $box-xs-padding;
+}
 
-  .box-sm {
-    padding: $box-sm-padding;
-  }
+.box-sm {
+  padding: $box-sm-padding;
+}
 
-  .box-md {
-    padding: $box-md-padding;
-  }
+.box-md {
+  padding: $box-md-padding;
+}
 
-  .box-lg {
-    padding: $box-lg-padding;
-  }
+.box-lg {
+  padding: $box-lg-padding;
+}
