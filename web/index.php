@@ -36,7 +36,7 @@ $artefact0 = new Artefact();
 $artefact0->setId(0);
 $artefact0->setName('Esc white');
 $artefact0->setColor('white');
-$artefact0->setHashtag('esc-white');
+$artefact0->setHashtag('escWhite');
 $artefact0->setIcon('esc-white.png');
 $artefacts[0] = $artefact0;
 
@@ -44,7 +44,7 @@ $artefact1 = new Artefact();
 $artefact1->setId(1);
 $artefact1->setName('Esc yellow');
 $artefact1->setColor('yellow');
-$artefact1->setHashtag('esc-yellow');
+$artefact1->setHashtag('escYellow');
 $artefact1->setIcon('esc-yellow.png');
 $artefacts[1] = $artefact1;
 
@@ -52,7 +52,7 @@ $artefact2 = new Artefact();
 $artefact2->setId(2);
 $artefact2->setName('Esc pink');
 $artefact2->setColor('pink');
-$artefact2->setHashtag('esc-pink');
+$artefact2->setHashtag('escPink');
 $artefact2->setIcon('esc-pink.png');
 $artefacts[2] = $artefact2;
 
@@ -60,7 +60,7 @@ $artefact3 = new Artefact();
 $artefact3->setId(3);
 $artefact3->setName('Esc blue');
 $artefact3->setColor('blue');
-$artefact3->setHashtag('esc-blue');
+$artefact3->setHashtag('escBlue');
 $artefact3->setIcon('esc-blue.png');
 $artefacts[3] = $artefact3;
 
@@ -98,13 +98,13 @@ function convertIpToCoordinates($ipAddress)
 function hashtagToArtefact($twitterMessage)
 {
   preg_match_all("/(#\w+)/", $twitterMessage, $matches);
-  if (in_array('#esc-white', $matches)){
+  if (in_array('#escWhite', $matches)){
     return $artefact0;
-  } else if(in_array('#esc-white', $matches)){
+  } else if(in_array('#escYellow', $matches)){
     return $artefact1;
-  } else if(in_array('#esc-yellow', $matches)){
+  } else if(in_array('#escPink', $matches)){
     return $artefact2;
-  } else if(in_array('#esc-pink', $matches)){
+  } else if(in_array('#escBlue', $matches)){
     return $artefact3;
   } else {
     return null;
@@ -162,10 +162,16 @@ $app->get('/escape-map.json/{id}', function ($id) use ($app) {
 /**
  * Posts a tweet for an escape.
  */
-$app->post('/escape', function (Request $request) use ($app) {
+$app->post('/escape', function (Request $request) use ($app, $artefacts) {
 
   $tweetText = $request->request->get('tweet-body');
-  $id = $request->request->get('escape-id');
+  $id = intval($request->get('escape-id'));
+
+  // Detect the artefact or returns 404 if not found.
+  if (!isset($artefacts[$id])) {
+    return $app['twig']->render('404.html.twig');
+  }
+
   $coordinates = convertIpToCoordinates($request->getClientIp());
 
   $consumerKey = $app['config']['twitter']['consumer_key'];
@@ -176,11 +182,6 @@ $app->post('/escape', function (Request $request) use ($app) {
   // TODO: Handle Twitter connection errors
   $connection = new TwitterOAuth($consumerKey, $consumerSecretKey, $accessToken, $accessTokenSecret);
   $connection->get('account/verify_credentials');
-
-  // Detect the artefact or returns 404 if not found.
-  if (!isset($artefacts[$id])) {
-    return $app['twig']->render('escape/404.html.twig');
-  }
 
   // Add main hashtag (MFK, ...) and the artefact hashtag.
   $tweetText .= ' #' . $app['config']['gres']['main_hashtag'];
