@@ -1,8 +1,5 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors','On');
-
 // web/index.php
 require_once __DIR__.'/../vendor/autoload.php';
 require_once __DIR__.'/../src/Museomix/Entity/Artefact.php';
@@ -15,8 +12,10 @@ use Museomix\Entity\Artefact;
 
 $app = new Silex\Application();
 
-// Enable debug mode
-$app['debug'] = true;
+// Uncomment those for debugging purpose.
+//$app['debug'] = true;
+//error_reporting(E_ALL);
+//ini_set('display_errors','On');
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
   'twig.path' => __DIR__.'/../views',
