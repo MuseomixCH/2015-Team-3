@@ -9,4 +9,4 @@ google:
   map_api_key:          'YOUR_GOOGLE_MAP_API_KEY'
 
 gres:
-  main_hashtag:         'YOUR_MAIN_HASHTAG'
+  arobase_tag:         'YOUR_AROBASE_TAG'

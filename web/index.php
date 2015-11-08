@@ -282,7 +282,7 @@ $app->post('/escape', function (Request $request) use ($app, $artefacts) {
   $connection->get('account/verify_credentials');
 
   // Add main hashtag (MFK, ...) and the artefact hashtag.
-  $tweetText .= ' #' . $app['config']['gres']['main_hashtag'];
+  $tweetText .= ' @' . $app['config']['gres']['arobase_tag'];
   $tweetText .= ' #' . $artefacts[$id]->getHashtag();
 
   // TODO: Handle Twitter tweets errors
