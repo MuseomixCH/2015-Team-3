@@ -19,17 +19,17 @@ Setup
 
 Get the codebase
 ```
-git clone https://github.com/gperriard/great-escape.git
+git clone https://github.com/MuseomixCH/2015-Team-3.git
 ```
 
 Create the config file and adapt it.
 ```
-cp PATH_TO_YOUR_PROJECT/great-escape/config/parameters.yml.dist PATH_TO_YOUR_PROJECT/great-escape/config/parameters
+cp PATH_TO_YOUR_PROJECT/2015-Team-3/config/parameters.yml.dist PATH_TO_YOUR_PROJECT/2015-Team-3/config/parameters
 ```
 
 Install vendors
 ```
-cd great-escape
+cd 2015-Team-3
 composer install
 npm install
 ```
@@ -38,9 +38,9 @@ Webserver
 ```
 <VirtualHost *:80>
     ServerName mu.lo
-    DocumentRoot "PATH_TO_YOUR_PROJECT/great-escape/web"
+    DocumentRoot "PATH_TO_YOUR_PROJECT/2015-Team-3/web"
 
-    <Directory "PATH_TO_YOUR_PROJECT/great-escape/web" >
+    <Directory "PATH_TO_YOUR_PROJECT/2015-Team-3/web" >
         DirectoryIndex index.php
         AllowOverride All
         Options All
