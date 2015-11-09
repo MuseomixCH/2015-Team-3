@@ -54,5 +54,14 @@ ini_set('display_errors','On');
 Authors
 -------
 
+- Maker: Mariana Rihl
+- Design: Caroline Bossy
+- Facilitator: Claudia Stübi
+- Content: Christian Rohner, Elke Schimanski
+- Communication: Philipp Burkard
+- Code: Daniel Huf, Geoffroy Perriard
+
+License
+-------
 [CC-BY-SA](https://creativecommons.org/licenses/by-sa/4.0/)
 
