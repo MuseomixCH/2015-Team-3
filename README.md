@@ -17,9 +17,18 @@ Setup
 - PHP5-curl
 - Gulp
 
-Codebase
+Get the codebase
 ```
 git clone https://github.com/gperriard/great-escape.git
+```
+
+Create the config file and adapt it.
+```
+cp PATH_TO_YOUR_PROJECT/great-escape/config/parameters.yml.dist PATH_TO_YOUR_PROJECT/great-escape/config/parameters
+```
+
+Install vendors
+```
 cd great-escape
 composer install
 npm install
